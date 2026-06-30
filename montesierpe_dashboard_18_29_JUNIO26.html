@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Montesierpe | Análisis Comparativo de Campañas — Origen del Pisco</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Montserrat:wght@400;500;600;700&display=swap');
+
+:root{
+  --rojo: #6B1A1A;
+  --oro: #9A7C50;
+  --noche: #1E1408;
+  --cal: #F0ECE0;
+  --tierra: #B4905C;
+  --ladrillo: #C4784A;
+  --verde-win: #4A6B3A;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+  background: var(--cal);
+  color: var(--noche);
+  font-family: 'Montserrat', sans-serif;
+  padding-bottom: 80px;
+}
+
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px;}
+
+/* HEADER */
+header{
+  background: linear-gradient(160deg, var(--noche) 0%, #2b1d10 100%);
+  color: var(--cal);
+  padding: 56px 0 44px;
+  border-bottom: 6px solid var(--oro);
+  position: relative;
+  overflow: hidden;
+}
+header::before{
+  content:"";
+  position:absolute; inset:0;
+  background-image: repeating-linear-gradient(45deg, rgba(154,124,80,0.04) 0px, rgba(154,124,80,0.04) 2px, transparent 2px, transparent 18px);
+  pointer-events:none;
+}
+.eyebrow{
+  font-family:'Montserrat'; font-size:12px; letter-spacing:3px; text-transform:uppercase;
+  color: var(--tierra); margin-bottom:14px; display:flex; align-items:center; gap:10px;
+}
+.eyebrow::before{content:"";width:28px;height:1px;background:var(--oro);display:inline-block;}
+h1{
+  font-family:'Cinzel'; font-weight:700; font-size:40px; letter-spacing:0.5px;
+  margin-bottom:10px; color:var(--cal);
+}
+.subtitle{
+  font-family:'Cormorant Garamond'; font-style:italic; font-size:20px; color:var(--tierra);
+  max-width: 640px; line-height:1.5;
+}
+.meta-row{
+  display:flex; gap:36px; margin-top:32px; flex-wrap:wrap;
+}
+.meta-item{font-size:12px; color: rgba(240,236,224,0.55); letter-spacing:0.5px;}
+.meta-item strong{display:block; color:var(--cal); font-size:14px; font-family:'Montserrat'; font-weight:600; margin-top:4px;}
+
+/* SECTION HEADERS */
+.section{padding: 56px 0;}
+.section-head{display:flex; align-items:baseline; gap:18px; margin-bottom:8px;}
+.section-num{font-family:'Cinzel'; font-size:13px; color:var(--oro); letter-spacing:2px;}
+.section-title{font-family:'Cinzel'; font-size:26px; font-weight:600; color:var(--noche);}
+.section-desc{font-family:'Cormorant Garamond'; font-size:17px; font-style:italic; color:#5c4a30; margin:6px 0 32px; max-width:680px;}
+hr.div{border:none; border-top:1px solid rgba(154,124,80,0.3); margin: 0 0 0;}
+
+/* TOGGLE */
+.toggle-bar{
+  display:flex; gap:8px; margin-bottom:28px;
+}
+.toggle-btn{
+  font-family:'Montserrat'; font-size:13px; font-weight:600; letter-spacing:0.3px;
+  padding:10px 20px; border-radius:2px; border:1.5px solid var(--noche);
+  background:transparent; color:var(--noche); cursor:pointer;
+  transition: all 0.2s ease;
+}
+.toggle-btn.active{ background:var(--rojo); color:var(--cal); border-color:var(--rojo); }
+.toggle-btn:hover:not(.active){ background:rgba(107,26,26,0.08); }
+
+/* COMPARISON GRID */
+.compare-grid{
+  display:grid; grid-template-columns: 1.4fr 1fr 1fr; gap:0;
+  background:#fff; border:1px solid rgba(154,124,80,0.35);
+}
+.compare-grid .head-cell{
+  font-family:'Cinzel'; font-size:13px; letter-spacing:1px; text-transform:uppercase;
+  padding:18px 20px; background:var(--noche); color:var(--cal);
+}
+.compare-grid .head-cell.etapa1{background:#4a3826;}
+.compare-grid .head-cell.etapa2{background:var(--rojo);}
+.compare-grid .head-cell small{display:block; font-family:'Montserrat'; font-weight:400; font-size:11px; opacity:0.7; margin-top:4px; letter-spacing:0.3px;}
+
+.metric-row{display:contents;}
+.metric-label{
+  padding:18px 20px; font-size:13px; font-weight:600; color:#3a2e1c;
+  border-bottom:1px solid rgba(154,124,80,0.2); display:flex; align-items:center;
+  background:#fbf9f4;
+}
+.metric-val{
+  padding:18px 20px; border-bottom:1px solid rgba(154,124,80,0.2);
+  border-left:1px solid rgba(154,124,80,0.2);
+  display:flex; flex-direction:column; justify-content:center; gap:4px;
+  font-family:'Montserrat';
+}
+.metric-val .num{font-size:22px; font-weight:700; color:var(--noche);}
+.metric-val.winner .num{color:var(--verde-win);}
+.metric-val.winner{background: rgba(74,107,58,0.06); position:relative;}
+.metric-val.winner::before{
+  content:"▲ MEJOR"; font-size:9px; letter-spacing:1px; font-weight:700; color:var(--verde-win);
+}
+.metric-val.loser .num{color:#9c8260;}
+.metric-val .delta{font-size:11px; color:#8a7553;}
+.metric-val.na{color:#b3a78c; font-style:italic; font-size:13px;}
+
+/* CARDS */
+.card-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:24px;}
+.stat-card{
+  background:#fff; border:1px solid rgba(154,124,80,0.3); padding:22px 20px;
+}
+.stat-card .label{font-size:11px; letter-spacing:1px; text-transform:uppercase; color:#8a7553; margin-bottom:8px;}
+.stat-card .value{font-family:'Cinzel'; font-size:28px; color:var(--noche);}
+.stat-card .sub{font-size:12px; color:#8a7553; margin-top:6px;}
+
+/* ADSET CARDS */
+.adset-cards{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
+.adset-card{background:#fff; border:1px solid rgba(154,124,80,0.35); padding:26px;}
+.adset-card .name{font-family:'Montserrat'; font-weight:700; font-size:12px; letter-spacing:0.5px; color:var(--rojo); margin-bottom:18px; text-transform:uppercase;}
+.adset-card .row{display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid rgba(154,124,80,0.15); font-size:13px;}
+.adset-card .row span:last-child{font-weight:700; color:var(--noche);}
+.adset-card.efficient{border-color:var(--verde-win); box-shadow: 0 0 0 1px var(--verde-win) inset;}
+.adset-card .badge{display:inline-block; font-size:10px; letter-spacing:1px; background:var(--verde-win); color:#fff; padding:3px 10px; margin-bottom:14px; font-weight:700;}
+
+/* CHARTS */
+.chart-box{background:#fff; border:1px solid rgba(154,124,80,0.3); padding:28px; margin-top:24px;}
+.chart-title{font-family:'Cinzel'; font-size:15px; margin-bottom:18px; color:var(--noche);}
+
+/* TIKTOK BLOCK */
+.tiktok-section{
+  background: var(--noche); color:var(--cal); padding:48px; margin-top:24px; position:relative;
+}
+.tiktok-section .warn{
+  border-left:3px solid var(--ladrillo); padding:14px 18px; background:rgba(196,120,74,0.12);
+  font-size:13px; line-height:1.6; margin-bottom:28px; color:#f0d8c4;
+}
+.tiktok-stats{display:grid; grid-template-columns:repeat(4,1fr); gap:18px; margin-bottom:28px;}
+.tk-stat{border:1px solid rgba(240,236,224,0.2); padding:18px;}
+.tk-stat .label{font-size:10px; letter-spacing:1px; text-transform:uppercase; color:var(--tierra); margin-bottom:8px;}
+.tk-stat .value{font-family:'Cinzel'; font-size:24px;}
+.tk-stat .flag{font-size:10px; color:var(--ladrillo); margin-top:6px; font-weight:600;}
+.audience-bars{margin-top:10px;}
+.abar-row{display:flex; align-items:center; gap:12px; margin-bottom:10px; font-size:12px;}
+.abar-row .age{width:50px; color:var(--tierra);}
+.abar-track{flex:1; height:8px; background:rgba(240,236,224,0.12);}
+.abar-fill{height:100%; background:var(--ladrillo);}
+.abar-pct{width:36px; text-align:right;}
+
+/* VERDICT */
+.verdict-box{
+  background: linear-gradient(135deg, var(--rojo) 0%, #4a1212 100%); color:var(--cal);
+  padding:40px 44px; margin-top:32px; position:relative; border-left:6px solid var(--oro);
+}
+.verdict-box .v-eyebrow{font-size:11px; letter-spacing:2px; color:var(--tierra); margin-bottom:12px; text-transform:uppercase;}
+.verdict-box .v-title{font-family:'Cinzel'; font-size:24px; margin-bottom:16px;}
+.verdict-box p{font-family:'Cormorant Garamond'; font-size:17px; line-height:1.65; max-width:780px;}
+.verdict-box p + p{margin-top:12px;}
+
+.caveat{
+  font-size:12px; color:#8a7553; font-style:italic; font-family:'Cormorant Garamond'; margin-top:16px; line-height:1.6;
+}
+
+footer{
+  background:var(--noche); color:rgba(240,236,224,0.5); text-align:center; padding:28px 0;
+  font-size:11px; letter-spacing:1px; margin-top:60px;
+}
+footer strong{color:var(--tierra);}
+
+@media (max-width:760px){
+  .compare-grid{grid-template-columns:1fr; }
+  .compare-grid .head-cell{grid-column:1;}
+  .metric-label{grid-column:1; border-top:2px solid var(--rojo);}
+  .card-grid, .tiktok-stats, .adset-cards{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="eyebrow">Hineni Strategy Agency · Reporte de Paid Media</div>
+    <h1>Origen del Pisco — Análisis Comparativo</h1>
+    <p class="subtitle">Montesierpe Casa Hacienda · Etapa 1 vs Etapa 2 en Meta Ads, con bloque independiente de TikTok Promote</p>
+    <div class="meta-row">
+      <div class="meta-item">Periodo Etapa 1<strong>18 – 22 jun 2026</strong></div>
+      <div class="meta-item">Periodo Etapa 2<strong>23 – 29 jun 2026</strong></div>
+      <div class="meta-item">Plataforma principal<strong>Meta Ads Manager</strong></div>
+      <div class="meta-item">Objetivo<strong>Conversaciones en WhatsApp</strong></div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- SECTION 1: COMPARATIVO CAMPAÑA -->
+  <section class="section" id="s1">
+    <div class="section-head">
+      <span class="section-num">01</span>
+      <span class="section-title">Campaña Meta — Etapa 1 vs Etapa 2</span>
+    </div>
+    <p class="section-desc">Comparación directa a nivel de campaña agregada. La etapa con mejor desempeño en cada métrica queda marcada en verde.</p>
+
+    <div class="compare-grid" id="compareGrid"></div>
+
+    <p class="caveat">Nota metodológica: la inversión de Etapa 1 incluye Meta (119.99 soles) y TikTok Promote (30 soles) por separado — nunca se suman, conforme al estándar de reporte de la cuenta. El comparativo de esta sección corresponde exclusivamente a Meta Ads Manager.</p>
+  </section>
+
+  <hr class="div">
+
+  <!-- SECTION 2: AD SETS -->
+  <section class="section" id="s2">
+    <div class="section-head">
+      <span class="section-num">02</span>
+      <span class="section-title">Desagregado por Ad Set — Acumulado de Campaña</span>
+    </div>
+    <p class="section-desc">Las cifras por Ad Set son acumuladas desde su fecha de inicio real hasta el 29 de junio, no exclusivas de la Etapa 2. El N°8 lleva activo desde el 18 de junio (toda la campaña); el N°2 inició el 25 de junio. No se normalizan por día activo: la comparación es de totales tal cual, con la diferencia de tiempo activo señalada explícitamente.</p>
+
+    <div class="adset-cards" id="adsetGrid"></div>
+    <p class="caveat">El N°8 acumula ~11-12 días activos frente a ~5 días del N°2. Esta diferencia de ventana de tiempo no fue ajustada matemáticamente por decisión explícita; debe tenerse en cuenta al interpretar el costo por conversación y el volumen de reproducciones.</p>
+  </section>
+
+  <hr class="div">
+
+  <!-- SECTION 3: TIKTOK -->
+  <section class="section" id="s3">
+    <div class="section-head">
+      <span class="section-num">03</span>
+      <span class="section-title">TikTok Promote — Bloque Independiente</span>
+    </div>
+    <p class="section-desc">TikTok Promote (boost nativo) es estructuralmente distinto a Meta Ads Manager: no reporta conversaciones ni eventos de conversión, solo clics al botón y métricas de visualización. Se presenta como bloque de awareness, sin comparación de eficiencia.</p>
+
+    <div class="tiktok-section">
+      <div class="warn">
+        Diagnóstico nativo de la plataforma: <em>"Tu vídeo no funciona tan bien como promociones similares"</em>. Las cuatro métricas de engagement (hook rate, retención a 6s, visualización completa, tasa de me gusta) están por debajo de la media de TikTok.
+      </div>
+      <div class="tiktok-stats" id="tkGrid"></div>
+      <div class="chart-title" style="color:var(--cal); margin-top:8px;">Audiencia alcanzada por rango de edad</div>
+      <div class="audience-bars" id="ageBars"></div>
+    </div>
+  </section>
+
+  <hr class="div">
+
+  <!-- SECTION 4: VEREDICTO -->
+  <section class="section" id="s4">
+    <div class="section-head">
+      <span class="section-num">04</span>
+      <span class="section-title">Veredicto Estratégico</span>
+    </div>
+    <div class="verdict-box">
+      <div class="v-eyebrow">Conclusión del análisis</div>
+      <div class="v-title">Etapa 2 superó a Etapa 1 en eficiencia de conversión</div>
+      <p id="verdictText"></p>
+      <p id="verdictText2"></p>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="wrap"><strong>Hineni Strategy Agency</strong> — Montesierpe Casa Hacienda · Reporte interno de paid media</div>
+</footer>
+
+<script>
+const etapa1 = {
+  inversion: 119.99, conversaciones: 63, costoConv: 1.90, alcance: 9860, impresiones: 15144,
+  cpm: 7.92, frecuencia: 1.54, ctr: 5.44, clics: 136, cpc: 0.15
+};
+const etapa2 = {
+  inversion: 105.97, conversaciones: 109, costoConv: 0.97, alcance: 8717, impresiones: 13447,
+  cpm: 7.88, frecuencia: 1.54, ctr: 6.02, clics: 167, cpc: 0.13
+};
+
+// metric definition: lowerIsBetter true/false
+const metrics = [
+  {label:"Inversión (soles)", k:"inversion", fmt:v=>v.toFixed(2), lower:true, note:"Mayor inversión en Etapa 1, pero con menor retorno en conversaciones"},
+  {label:"Conversaciones (WhatsApp)", k:"conversaciones", fmt:v=>v, lower:false},
+  {label:"Costo por conversación (soles)", k:"costoConv", fmt:v=>v.toFixed(2), lower:true},
+  {label:"Alcance (personas)", k:"alcance", fmt:v=>v.toLocaleString('es-PE'), lower:false},
+  {label:"Impresiones", k:"impresiones", fmt:v=>v.toLocaleString('es-PE'), lower:false},
+  {label:"CPM (soles)", k:"cpm", fmt:v=>v.toFixed(2), lower:true},
+  {label:"Frecuencia", k:"frecuencia", fmt:v=>v.toFixed(2), lower:null}, // tie, no winner implied
+  {label:"CTR (%)", k:"ctr", fmt:v=>v.toFixed(2)+"%", lower:false},
+  {label:"Clics en el enlace", k:"clics", fmt:v=>v, lower:false},
+  {label:"CPC (soles)", k:"cpc", fmt:v=>v.toFixed(2), lower:true},
+];
+
+const grid = document.getElementById('compareGrid');
+let html = `
+  <div class="head-cell">Métrica</div>
+  <div class="head-cell etapa1">Etapa 1<small>18–22 jun</small></div>
+  <div class="head-cell etapa2">Etapa 2<small>23–29 jun</small></div>
+`;
+metrics.forEach(m=>{
+  const v1 = etapa1[m.k], v2 = etapa2[m.k];
+  let w1=false, w2=false;
+  if(m.lower===true){ w1 = v1<v2; w2=v2<v1; }
+  else if(m.lower===false){ w1 = v1>v2; w2=v2>v1; }
+  // lower===null -> tie, no winner class
+  const cls1 = w1?'winner':(w2?'loser':'');
+  const cls2 = w2?'winner':(w1?'loser':'');
+  html += `<div class="metric-label">${m.label}</div>`;
+  html += `<div class="metric-val ${cls1}"><span class="num">${m.fmt(v1)}</span></div>`;
+  html += `<div class="metric-val ${cls2}"><span class="num">${m.fmt(v2)}</span></div>`;
+});
+grid.innerHTML = html;
+
+// Ad sets — acumulado de campaña (al 29 jun), no exclusivo de Etapa 2
+const adsets = [
+  {name:"MONTESIERPE | META ADS N°8 | VENTAS | 25JUNE26", creativo:"El Origen del Pisco", inicio:"18 jun 2026", dias:"~11-12 días activos", conv:78, costo:2.10, gasto:163.98, v3s:7080, v50:2439, v25:4116, efficient:false},
+  {name:"MONTESIERPE | META ADS N°2 | VENTAS | 25JUNE26", creativo:"Quiénes somos", inicio:"25 jun 2026", dias:"~5 días activos", conv:93, costo:0.60, gasto:56.02, v3s:2876, v50:1121, v25:1575, efficient:true},
+];
+document.getElementById('adsetGrid').innerHTML = adsets.map(a=>`
+  <div class="adset-card ${a.efficient?'efficient':''}">
+    ${a.efficient?'<span class="badge">MÁS EFICIENTE</span>':''}
+    <div class="name">${a.name}</div>
+    <div class="row"><span>Creatividad</span><span>"${a.creativo}"</span></div>
+    <div class="row"><span>Inicio del Ad Set</span><span>${a.inicio}</span></div>
+    <div class="row"><span>Tiempo activo</span><span>${a.dias}</span></div>
+    <div class="row"><span>Conversaciones (acum.)</span><span>${a.conv}</span></div>
+    <div class="row"><span>Costo por conversación</span><span>S/ ${a.costo.toFixed(2)}</span></div>
+    <div class="row"><span>Gasto total (acum.)</span><span>S/ ${a.gasto.toFixed(2)}</span></div>
+    <div class="row"><span>Reproducciones 3 seg</span><span>${a.v3s.toLocaleString('es-PE')}</span></div>
+    <div class="row"><span>Reproducciones hasta 50%</span><span>${a.v50.toLocaleString('es-PE')}</span></div>
+    <div class="row"><span>Reproducciones hasta 25%</span><span>${a.v25.toLocaleString('es-PE')}</span></div>
+  </div>
+`).join('');
+
+// TikTok stats
+const tk = [
+  {label:"Inversión", value:"S/ 30.00"},
+  {label:"Clics a WhatsApp", value:"224"},
+  {label:"Costo por clic", value:"S/ 0.13"},
+  {label:"Reproducciones de video", value:"15,546"},
+  {label:"Hook rate (2 seg)", value:"20.5%", flag:"Bajo la media"},
+  {label:"Retención a 6 seg", value:"5.4%", flag:"Bajo la media"},
+  {label:"Visualización completa", value:"1.0%", flag:"Bajo la media"},
+  {label:"Tasa de me gusta", value:"0.1%", flag:"Bajo la media"},
+];
+document.getElementById('tkGrid').innerHTML = tk.map(t=>`
+  <div class="tk-stat">
+    <div class="label">${t.label}</div>
+    <div class="value">${t.value}</div>
+    ${t.flag?`<div class="flag">▼ ${t.flag}</div>`:''}
+  </div>
+`).join('');
+
+const ages = [{r:"18-24",p:0},{r:"25-34",p:25},{r:"35-44",p:24},{r:"45-54",p:23},{r:"55+",p:28}];
+document.getElementById('ageBars').innerHTML = ages.map(a=>`
+  <div class="abar-row">
+    <div class="age">${a.r}</div>
+    <div class="abar-track"><div class="abar-fill" style="width:${a.p}%"></div></div>
+    <div class="abar-pct">${a.p}%</div>
+  </div>
+`).join('');
+
+document.getElementById('verdictText').innerHTML =
+ `Con una inversión 11.7% menor en Meta (S/ 105.97 vs S/ 119.99), la Etapa 2 generó 73% más conversaciones (109 vs 63) y redujo el costo por conversación en 49% (S/ 0.97 vs S/ 1.90). El CTR también mejoró (6.02% vs 5.44%) y el CPC bajó de S/ 0.15 a S/ 0.13, pese a un alcance e impresiones levemente menores — evidencia de una segmentación o creatividad más eficiente, no de mayor volumen de exposición.`;
+
+document.getElementById('verdictText2').innerHTML =
+ `A nivel de creatividad, las cifras son acumuladas de campaña (no exclusivas de la Etapa 2): el video "El Origen del Pisco" (Ad Set N°8) lleva activo desde el 18 de junio (~11-12 días) y "Quiénes somos" (Ad Set N°2) desde el 25 de junio (~5 días). Aun con menos de la mitad del tiempo activo, "Quiénes somos" ya generó más conversaciones (93 vs 78) a un costo 3.5x menor (S/ 0.60 vs S/ 2.10 por conversación) y produce reproducciones de video a un ritmo más rápido por día activo. Esto sugiere que el enfoque de identidad/cercanía de marca está conectando mejor con la audiencia que el enfoque histórico-patrimonial, aunque esta hipótesis debe seguir monitoreándose antes de tomarla como conclusión definitiva — no se descarta que otros factores creativos (hook, ritmo visual) expliquen parte de la diferencia. Se recomienda priorizar presupuesto hacia "Quiénes somos" mientras se valida esta tendencia. El bloque de TikTok Promote, en paralelo, no es comparable en eficiencia de conversión por su naturaleza de boost nativo, y su propio diagnóstico de plataforma señala desempeño de contenido por debajo de la media — una señal a considerar para la producción de creativos futuros, independientemente del canal de pauta.`;
+</script>
+
+</body>
+</html>
